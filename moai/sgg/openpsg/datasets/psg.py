@@ -1,5 +1,4 @@
 import os.path as osp
-import random
 from collections import defaultdict
 
 import mmcv
@@ -15,6 +14,7 @@ from panopticapi.utils import rgb2id
 
 from openpsg.evaluation import sgg_evaluation
 from openpsg.models.relation_heads.approaches import Result
+import secrets
 
 
 @DATASETS.register_module()
@@ -261,7 +261,7 @@ class PanopticSceneGraphDataset(CocoPanopticDataset):
         for i in range(gt_rels.shape[0]):
             # If already exists a relation?
             if relation_map[int(gt_rels[i, 0]), int(gt_rels[i, 1])] > 0:
-                if random.random() > 0.5:
+                if secrets.SystemRandom().random() > 0.5:
                     relation_map[int(gt_rels[i, 0]),
                                  int(gt_rels[i, 1])] = int(gt_rels[i, 2])
             else:
